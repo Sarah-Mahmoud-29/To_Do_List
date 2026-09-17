@@ -3,7 +3,7 @@
 #include<vector>
 using namespace std;
 
-class task{
+class Task{
 
 string name;
 string priority;
@@ -11,55 +11,55 @@ string description;
 bool complete;
 
 public:
-    task(string n,string d,string p,bool c){
+    Task(string n,string d,string p,bool c){
         name=n;
         description=d;
         priority=p;
         complete=c;
     }
-    void SetComplete(bool s){
+    void setComplete(bool s){
     complete=s;
     }
 
-    void SetPriority(string p){
+    void setPriority(string p){
     priority=p;
     }
 
-    void SetDes(string D){
+    void setDes(string D){
     description=D;
     }
 
-    bool get_comlete(){
+    bool getComlete(){
     return complete;
     }
 
-    string get_name(){
+    string getName(){
     return name;
     }
 
-     string get_des(){
+     string getDes(){
     return description;
     }
 
-    string get_pri(){
+    string getPri(){
     return priority;
     }
 };
 
 
-bool compareTask(task task1, task task2) {
-    if (task1.get_pri() == "High" && task2.get_pri() != "High")
+bool compareTask(Task task1, Task task2) {
+    if (task1.getPri() == "High" && task2.getPri() != "High")
         return true;
-    if (task1.get_pri() == "Medium" && task2.get_pri() == "Low")
+    if (task1.getPri() == "Medium" && task2.getPri() == "Low")
         return true;
     return false;
 }
 
 class List{
-vector<task>mission;
+vector<Task>mission;
 
 public:
-//1
+
     void addMission(){
 
     cout<<"enter name of task"<<endl;
@@ -74,42 +74,42 @@ public:
     cout<<"if you complete task enter 1 else enter 0"<<endl;
     bool com;cin>>com;
 
-    task Add{name,des,pri,com};
+    Task Add{name,des,pri,com};
     mission.push_back(Add);
 
     cout<<"complete adding "<<endl;
     }
-//2
-    vector<task> CompletedTask(){
-     vector<task>result;
+
+    vector<Task> completedTask(){
+     vector<Task>result;
      for(int i=0;i<mission.size();i++){
-        if(mission[i].get_comlete())
+        if(mission[i].getComlete())
             result.push_back(mission[i]);
      }
      return result;
     }
-//3
+
     void view(){
         if(mission.empty()){
             cout<<"No tasks available."<<endl;
             return;
         }
         for(int i=0;i<mission.size();i++){
-   cout<<"Name : "<<mission[i].get_name()<<endl;
-   cout<<"Description : "<<mission[i].get_des()<<endl;
-   cout<<"Priority : "<<mission[i].get_pri()<<endl;
-   cout<<"isCompleted : "<<mission[i].get_comlete()<<endl;
+   cout<<"Name : "<<mission[i].getName()<<endl;
+   cout<<"Description : "<<mission[i].getDes()<<endl;
+   cout<<"Priority : "<<mission[i].getPri()<<endl;
+   cout<<"isCompleted : "<<mission[i].getComlete()<<endl;
         }
    }
-//4
+
     void makeComplete(string name){
         bool t=false;
      for(int i=0;i<mission.size();i++){
-        if(mission[i].get_name()==name){
+        if(mission[i].getName()==name){
                 t=true;
            cout<<"enter new value"<<endl;
            bool value;cin>>value;
-           mission[i].SetComplete(value);
+           mission[i].setComplete(value);
            break;
         }
      }
@@ -121,15 +121,15 @@ public:
      }
     }
 //5
-    void edit_task(string name,string edit,string newVal){
+    void editTask(string name,string edit,string newVal){
         bool found=false;
         for(int i=0;i<mission.size();i++){
-            if(mission[i].get_name()==name){
+            if(mission[i].getName()==name){
                 found=true;
                 if(edit=="description")
-                    mission[i].SetDes(newVal);
+                    mission[i].setDes(newVal);
                 else if (edit=="priority")
-                    mission[i].SetPriority(newVal);
+                    mission[i].setPriority(newVal);
                    break;
                 }
             }
@@ -138,7 +138,8 @@ public:
             else
                 cout<<"error"<<endl;
             }
-//6
+
+
     void SORT(){
 
   sort(mission.begin(),mission.end(),compareTask);
@@ -152,9 +153,6 @@ int main(){
 
 List obj;
 int choice;
-int q;
-//cout<<"enter numbers of Query"<<endl;
-//cin>>q;
 while (true) {
         cout << "\n=== To-Do List Menu ==="<<endl;
         cout << "1. Add New Task"<<endl;
@@ -182,19 +180,19 @@ while (true) {
             cout << "enter name then what you want to update (description/priority) then new value" << endl;
             string name, update, newVal;
             cin >> name >> update >> newVal;
-            obj.edit_task(name, update, newVal);
+            obj.editTask(name, update, newVal);
         }
         else if (choice == 5) {
             obj.SORT();
         }
         else if (choice == 6) {
-            vector<task> comp = obj.CompletedTask();
+            vector<Task> comp = obj.completedTask();
             cout << "\n--- Completed Tasks ---\n";
             if (comp.empty()) {
                 cout << "No completed tasks yet.\n";
             } else {
                 for (size_t i = 0; i < comp.size(); i++) {
-                    cout << "- " << comp[i].get_name() << " (" << comp[i].get_des() << ")\n";
+                    cout << "- " << comp[i].getName() << " (" << comp[i].getDes() << ")\n";
                 }
             }
         }
@@ -206,7 +204,6 @@ while (true) {
         else {
             cout << "Invalid choice! Try again."<<endl;
         }
-   // --q;
     }
 return 0;
 
